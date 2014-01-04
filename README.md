@@ -11,5 +11,39 @@ Basic Usage
 -----------
 
 ```js
-test
+Obj1 = new StandardObject();
+Obj2 = new StandardObject();
+
+Obj1.addEventListener("ready", new Callback(Obj2, function()
+{
+	alert("Obj1 is ready!");
+}));
+
+window.setTimeout(function()
+{
+	Obj1.dispatchEvent("ready");
+}, 3000);
+```
+
+Asynchronous Image Loading Using Extended Classes
+--------------------------
+
+```js
+Loader = new ImageLoader();
+CanvasD = new CanvasDisplay("mycanvas");
+
+Loader.addEventListener("loaded", new Callback(CanvasD, function(Img)
+{
+	this.draw(Img)
+}));
+
+images = ["images/test.jpg","images/test2.jpg","images/test3.jpg","images/test4.jpg","images/test5.jpg"];
+
+window.setInterval(function()
+{
+	var img = images[Math.round(Math.random()*(images.length-1))];
+	console.log(img);
+
+	Loader.load(img);
+}, 1000);
 ```
