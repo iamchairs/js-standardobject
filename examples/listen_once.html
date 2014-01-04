@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<script type="text/javascript" src="standardobject.js"></script>
+		<title>Listen Once</title>
+
+		<script type="text/javascript">
+			Obj1 = new StandardObject();
+			Obj2 = new StandardObject();
+
+			// A boolean is the 3'rd parameter in an event listener
+			// addEventListener(event, Callback [, once [, data]])
+			// If set to true the listener will remove itself and not listen to additional
+			//		dispatches with this event name
+
+
+			Obj1.addEventListener("ready", new Callback(Obj2, function(data)
+			{
+				alert(data);
+			}), true);
+
+			// Timeout called in 3 seconds.
+			window.setTimeout(function()
+			{
+				Obj1.dispatchEvent("ready", "we're ready to go!");
+			}, 3000);
+
+			// Timeout called in 6 seconds.
+			window.setTimeout(function()
+			{
+				Obj1.dispatchEvent("ready", "this will not be listened to");
+			}, 6000);
+		</script>
+	</head>
+	<body>
+		Obj1 will be ready in 3 seconds with the message "we're ready to go!"...<br/>
+		At 6 seconds a second ready event will be dispatched but the listener has been removed by then.
+	</body>
+</html>

@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<script type="text/javascript" src="standardobject.js"></script>
+		<title>Dispatch Observer</title>
+
+		<script type="text/javascript">
+			Obj1 = new StandardObject();
+			Obj2 = new StandardObject();
+
+			Obj1.addEventListener("ready", new Callback(Obj2, function()
+			{
+				alert("Obj1 has been initialized and loaded!");
+			}));
+
+			// A dispatch observer is created to observer multiple events. Once all events have been observered
+			//		once another event will be dispatched. In this case "ready".
+			//
+			// Usefull is multiple loading processes need to be observers before and object is considered
+			//		"ready".
+
+			Obj1.addDispatchObserver("ready", ["initialized","loaded"]);
+
+			// Timeout called in 3 seconds.
+			window.setTimeout(function()
+			{
+				Obj1.dispatchEvent("initialized");
+			}, 3000);
+
+			// Timeout called in 3 seconds.
+			window.setTimeout(function()
+			{
+				Obj1.dispatchEvent("loaded");
+			}, 6000);
+		</script>
+	</head>
+	<body>
+		Obj1 dispatches "initialized" in 3 seconds and "loaded" in 6 seconds. After both these events have been observered Obj1 will dispatch "ready"...
+	</body>
+</html>

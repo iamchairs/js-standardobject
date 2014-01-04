@@ -1,0 +1,40 @@
+<html>
+	<head>
+		<script type="text/javascript" src="standardobject.js"></script>
+		<title>Errors, Warnings, Messages, and Logs</title>
+
+		<script type="text/javascript">
+			Obj1 = new StandardObject();
+
+			// Errors, Warnings, Messages, and Logs are recommendations for your application.
+			// By default the only thing these methods will do when called is records logs to the
+			//		errors, warnings, messages, and logs array depending on the method called.
+			// All errors, warnings, and messages will automatically be added to logs.
+			// 
+			// Since these methods don't automatically print to the console I will add event listeners
+			//		to do this.
+			
+			Obj1.addEventListener("error", new Callback(Obj1, function(Lg)
+			{
+				console.error(Lg.message)
+			}));
+
+			Obj1.addEventListener("warn", new Callback(Obj1, function(Lg)
+			{
+				console.warn(Lg.message)
+			}));
+
+			Obj1.addEventListener("message", new Callback(Obj1, function(Lg)
+			{
+				console.log(Lg.message)
+			}));
+
+			Obj1.error("Obj1 cannot load without being initialized!");
+			Obj1.warn("Obj1 has more foo than bar!");
+			Obj1.message("Obj1 loaded with remote data.");
+		</script>
+	</head>
+	<body>
+		Check your console to see errors, warnings and messages.
+	</body>
+</html>

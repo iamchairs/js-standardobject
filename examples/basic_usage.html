@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<script type="text/javascript" src="standardobject.js"></script>
+		<title>StandardObject Basic Usage</title>
+
+		<script type="text/javascript">
+			Obj1 = new StandardObject();
+			Obj2 = new StandardObject();
+
+			// Adding an event listener for "ready"
+			//
+			// The first parameter is the scope of the callback so the callback doesn't run
+			//		inside the window scope.
+			//
+			// As you can see the scope doesn't have to be in Obj1. By setting Obj2 as the scope for the 
+			//		callback Obj2 can handle the ready event for Obj1.
+			//
+			// The second parameter is the function that will be called when the event is listened to.
+			Obj1.addEventListener("ready", new Callback(Obj2, function()
+			{
+				alert("Obj1 is ready!");
+			}));
+
+			// Timeout called in 3 seconds.
+			window.setTimeout(function()
+			{
+				Obj1.dispatchEvent("ready");
+			}, 3000);
+		</script>
+	</head>
+	<body>
+		Obj1 will be ready in 3 seconds...
+	</body>
+</html>

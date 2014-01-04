@@ -1,0 +1,39 @@
+<html>
+	<head>
+		<script type="text/javascript" src="standardobject.js"></script>
+		<script type="text/javascript" src="lib/imageloader.js"></script>
+		<script type="text/javascript" src="lib/canvasdisplay.js"></script>
+
+		<title>Image Load Example</title>
+	</head>
+	<body style="margin: 0px; background-color: #333;">
+		<canvas id="mycanvas" width="500" height="500" style="background-color: #fff;"></canvas>
+
+		<script type="text/javascript">
+			
+			// Here we can see where the StandardObject becomes useful. In a large application
+			//  	with many asynchronous peices it's gets difficult to keep up where callbacks come from
+			//		and which pieces of code come from where.
+			// Here we can create some level of abstraction where the image loading process doesn't affect
+			//		the drawing process.
+
+			Loader = new ImageLoader();
+			CanvasD = new CanvasDisplay("mycanvas");
+
+			Loader.addEventListener("loaded", new Callback(CanvasD, function(Img)
+			{
+				this.draw(Img)
+			}));
+
+			images = ["images/test.jpg","images/test2.jpg","images/test3.jpg","images/test4.jpg","images/test5.jpg"];
+
+			window.setInterval(function()
+			{
+				var img = images[Math.round(Math.random()*(images.length-1))];
+				console.log(img);
+
+				Loader.load(img);
+			}, 1000);
+		</script>
+	</body>
+</html>

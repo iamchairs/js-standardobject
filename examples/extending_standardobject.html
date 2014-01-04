@@ -1,0 +1,33 @@
+<html>
+	<head>
+		<script type="text/javascript" src="standardobject.js"></script>
+		<title>Extending StandardObject</title>
+
+		<script type="text/javascript">
+			function ImageLoader(){}
+
+			ImageLoader.prototype = new StandardObject();
+			ImageLoader.prototype.image = "";
+			ImageLoader.prototype.ImageObj = null;
+
+			ImageLoader.prototype.load = function(str)
+			{
+				this.image = str;
+
+				var that = this;
+				this.ImageObj = new Image();
+				this.ImageObj.onload = function()
+				{
+					that.dispatchEvent("loaded");
+				}
+				this.ImageObj.src = str;
+			}
+
+			Loader = new ImageLoader();
+			Loader.load("images/test.png");
+		</script>
+	</head>
+	<body>
+		An ImageLoader class has been created to extend the StandardObject.
+	</body>
+</html>

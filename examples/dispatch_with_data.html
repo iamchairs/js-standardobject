@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<script type="text/javascript" src="standardobject.js"></script>
+		<title>Dispatch With Data</title>
+
+		<script type="text/javascript">
+			Obj1 = new StandardObject();
+			Obj2 = new StandardObject();
+
+			// In the callback function `data` is now a parameter.
+			// Data can be a any type of variable- event callbacks
+
+			Obj1.addEventListener("ready", new Callback(Obj2, function(data)
+			{
+				alert(data);
+			}));
+
+			Obj1.addEventListener("message", new Callback(Obj2, function(data)
+			{
+				console.log(data);
+				alert(data.im_an_object);
+			}));
+
+			// The second parameter here is the data to be dispatched.
+			// Timeout called in 3 seconds.
+			window.setTimeout(function()
+			{
+				Obj1.dispatchEvent("ready", "we're ready to go!");
+			}, 3000);
+
+			// Timeout called in 6 seconds.
+			window.setTimeout(function()
+			{
+				Obj1.dispatchEvent("message", 
+				{
+					"im_an_object":"This is an Object!",
+					"junk_data":"this is junk"
+				});
+			}, 6000);
+		</script>
+	</head>
+	<body>
+		Obj1 will be ready in 3 seconds with the message "we're ready to go!"...<br/>
+		At 6 seconds "message" will be dispatched with an object...
+	</body>
+</html>

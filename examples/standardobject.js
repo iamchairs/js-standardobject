@@ -11,6 +11,7 @@ function StandardObject()
 {
 	this.errors = [];
 	this.warnings = [];
+	this.messages = [];
 	this.logs = [];
 	this.eventListeners = [];
 	this.dispatchObservers = [];

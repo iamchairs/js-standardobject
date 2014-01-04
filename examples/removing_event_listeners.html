@@ -1,0 +1,30 @@
+<html>
+	<head>
+		<script type="text/javascript" src="standardobject.js"></script>
+		<title>Removing Event Listeners</title>
+
+		<script type="text/javascript">
+			Obj1 = new StandardObject();
+			Obj2 = new StandardObject();
+
+			// When an event listener is created an Event object will be returned.
+			Evt = Obj1.addEventListener("ready", new Callback(Obj2, function()
+			{
+				alert("Obj1 is ready!");
+			}));
+
+			console.log(Evt);
+
+			Obj1.removeEventListener(Evt);
+
+			// Timeout called in 3 seconds.
+			window.setTimeout(function()
+			{
+				Obj1.dispatchEvent("ready");
+			}, 3000);
+		</script>
+	</head>
+	<body>
+		Obj1 dispatches "ready" in 3 seconds but the event listener has been removed so nothing will happen.
+	</body>
+</html>
